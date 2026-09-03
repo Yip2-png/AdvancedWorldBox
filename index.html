@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced WorldBox - God Simulator</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/ui.css">
+    <link rel="stylesheet" href="styles/animations.css">
+</head>
+<body>
+    <!-- Main Game Container -->
+    <div id="gameContainer" class="game-container">
+        <!-- Canvas untuk rendering game -->
+        <canvas id="gameCanvas" class="game-canvas"></canvas>
+        
+        <!-- UI Layer -->
+        <div id="uiLayer" class="ui-layer">
+            <!-- Top Menu Bar -->
+            <div class="top-menu">
+                <div class="menu-section left">
+                    <button class="menu-btn" id="pauseBtn" title="Pause Game (Space)">
+                        <span class="icon">⏸</span>
+                        <span>Pause</span>
+                    </button>
+                    <button class="menu-btn" id="speedBtn" title="Game Speed">
+                        <span class="icon">⚡</span>
+                        <span id="speedText">1x</span>
+                    </button>
+                </div>
+                <div class="menu-section center">
+                    <h1 class="game-title">Advanced WorldBox</h1>
+                    <div class="time-display">
+                        Year: <span id="yearDisplay">1</span> | Season: <span id="seasonDisplay">Spring</span>
+                    </div>
+                </div>
+                <div class="menu-section right">
+                    <button class="menu-btn" id="statsBtn" title="World Stats (S)">
+                        <span class="icon">📊</span>
+                        <span>Stats</span>
+                    </button>
+                    <button class="menu-btn" id="settingsBtn" title="Settings (O)">
+                        <span class="icon">⚙️</span>
+                        <span>Settings</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Left Sidebar - Tools -->
+            <div class="left-sidebar">
+                <div class="tools-panel">
+                    <h3>Creation Tools</h3>
+                    <div class="tool-grid">
+                        <button class="tool-btn" id="tool-landscape" data-tool="landscape" title="Terrain Editor (L)">
+                            <span class="tool-icon">🏔️</span>
+                            <span>Landscape</span>
+                        </button>
+                        <button class="tool-btn" id="tool-water" data-tool="water" title="Water Tools (W)">
+                            <span class="tool-icon">💧</span>
+                            <span>Water</span>
+                        </button>
+                        <button class="tool-btn" id="tool-vegetation" data-tool="vegetation" title="Plants & Trees (V)">
+                            <span class="tool-icon">🌲</span>
+                            <span>Vegetation</span>
+                        </button>
+                        <button class="tool-btn" id="tool-creature" data-tool="creature" title="Spawn Creatures (C)">
+                            <span class="tool-icon">🐺</span>
+                            <span>Creatures</span>
+                        </button>
+                        <button class="tool-btn" id="tool-civilization" data-tool="civilization" title="Spawn Civilization (N)">
+                            <span class="tool-icon">👑</span>
+                            <span>Civilization</span>
+                        </button>
+                        <button class="tool-btn" id="tool-magic" data-tool="magic" title="Magic & Spells (M)">
+                            <span class="tool-icon">✨</span>
+                            <span>Magic</span>
+                        </button>
+                        <button class="tool-btn" id="tool-disaster" data-tool="disaster" title="Natural Disasters (D)">
+                            <span class="tool-icon">⚡</span>
+                            <span>Disasters</span>
+                        </button>
+                        <button class="tool-btn" id="tool-select" data-tool="select" title="Select/Inspect (E)">
+                            <span class="tool-icon">👆</span>
+                            <span>Select</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tool Options -->
+                <div id="toolOptions" class="tool-options">
+                    <h3 id="toolTitle">Tool Options</h3>
+                    <div id="toolSettings"></div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar - Info Panel -->
+            <div class="right-sidebar">
+                <div id="infoPanel" class="info-panel">
+                    <div class="info-header">
+                        <h3>World Info</h3>
+                        <button class="close-btn" id="closeInfoBtn">✕</button>
+                    </div>
+                    <div id="infoContent" class="info-content">
+                        <p>Click on entities to inspect them</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Panel - Quick Stats -->
+            <div class="bottom-panel">
+                <div class="stats-quick">
+                    <div class="stat-item">
+                        <span class="stat-label">Population:</span>
+                        <span class="stat-value" id="popStat">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Civilizations:</span>
+                        <span class="stat-value" id="civStat">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Creatures:</span>
+                        <span class="stat-value" id="creatureStat">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Temperature:</span>
+                        <span class="stat-value" id="tempStat">15°C</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Time Speed:</span>
+                        <span class="stat-value" id="speedStat">Normal</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modals -->
+        <div id="statsModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>World Statistics</h2>
+                    <button class="modal-close">✕</button>
+                </div>
+                <div class="modal-body" id="statsModalBody">
+                    <!-- Stats akan diisi oleh JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div id="settingsModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Settings</h2>
+                    <button class="modal-close">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div class="setting-group">
+                        <label>Graphics Quality</label>
+                        <select id="graphicsQuality">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                            <option value="ultra">Ultra</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label>Enable Particles</label>
+                        <input type="checkbox" id="enableParticles" checked>
+                    </div>
+                    <div class="setting-group">
+                        <label>Enable Sound</label>
+                        <input type="checkbox" id="enableSound" checked>
+                    </div>
+                    <div class="setting-group">
+                        <label>Show Tooltips</label>
+                        <input type="checkbox" id="showTooltips" checked>
+                    </div>
+                    <div class="setting-group">
+                        <label>Master Volume</label>
+                        <input type="range" id="volumeSlider" min="0" max="100" value="70">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification System -->
+        <div id="notificationContainer" class="notification-container"></div>
+
+        <!-- Context Menu -->
+        <div id="contextMenu" class="context-menu hidden">
+            <div id="contextMenuContent"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/utils/mathutils.js"></script>
+    <script src="js/utils/particlesystem.js"></script>
+    <script src="js/utils/soundmanager.js"></script>
+    <script src="js/core/world.js"></script>
+    <script src="js/core/terrain.js"></script>
+    <script src="js/core/weather.js"></script>
+    <script src="js/entities/entity.js"></script>
+    <script src="js/entities/creature.js"></script>
+    <script src="js/entities/human.js"></script>
+    <script src="js/entities/civilization.js"></script>
+    <script src="js/entities/building.js"></script>
+    <script src="js/systems/combat.js"></script>
+    <script src="js/systems/ai.js"></script>
+    <script src="js/systems/economy.js"></script>
+    <script src="js/systems/magic.js"></script>
+    <script src="js/rendering/renderer.js"></script>
+    <script src="js/rendering/shader.js"></script>
+    <script src="js/tools/toolmanager.js"></script>
+    <script src="js/tools/landscapetool.js"></script>
+    <script src="js/tools/watertool.js"></script>
+    <script src="js/tools/vegetationtool.js"></script>
+    <script src="js/tools/creaturetool.js"></script>
+    <script src="js/tools/civilizationtool.js"></script>
+    <script src="js/tools/magictool.js"></script>
+    <script src="js/tools/disastertool.js"></script>
+    <script src="js/ui/uimanager.js"></script>
+    <script src="js/ui/modals.js"></script>
+    <script src="js/input/inputmanager.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
