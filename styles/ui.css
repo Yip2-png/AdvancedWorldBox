@@ -1,0 +1,321 @@
+/* UI Elements Styling */
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, var(--secondary-color) 0%, #2980b9 100%);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  flex: 1;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(52, 152, 219, 0.4);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn.secondary {
+  background: linear-gradient(135deg, rgba(52, 152, 219, 0.6) 0%, rgba(41, 128, 185, 0.6) 100%);
+}
+
+.btn.danger {
+  background: linear-gradient(135deg, var(--accent-color) 0%, #c0392b 100%);
+}
+
+.btn.success {
+  background: linear-gradient(135deg, var(--success-color) 0%, #27ae60 100%);
+}
+
+.btn.small {
+  padding: 6px 12px;
+  font-size: 11px;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--light-text);
+  text-transform: uppercase;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--light-text);
+  font-size: 12px;
+  font-family: inherit;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--border-color);
+  margin-bottom: 15px;
+}
+
+.tab {
+  padding: 12px 20px;
+  background: transparent;
+  border: none;
+  color: var(--light-text);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.3s;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+}
+
+.tab:hover {
+  color: var(--secondary-color);
+}
+
+.tab.active {
+  color: var(--secondary-color);
+  border-bottom-color: var(--secondary-color);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Lists */
+.list-item {
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+
+.list-item:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.list-item-title {
+  font-weight: 600;
+  color: var(--light-text);
+}
+
+.list-item-subtitle {
+  font-size: 11px;
+  color: rgba(236, 240, 241, 0.6);
+  margin-top: 4px;
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: var(--secondary-color);
+  color: white;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.badge.danger {
+  background: var(--accent-color);
+}
+
+.badge.success {
+  background: var(--success-color);
+}
+
+.badge.warning {
+  background: var(--warning-color);
+}
+
+/* Cards */
+.card {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 12px;
+}
+
+.card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--secondary-color);
+  margin-bottom: 10px;
+}
+
+.card-content {
+  font-size: 12px;
+  color: var(--light-text);
+  line-height: 1.5;
+}
+
+/* Grid Layouts */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+/* Tooltips */
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 200px;
+  background: rgba(0, 0, 0, 0.9);
+  color: var(--light-text);
+  text-align: center;
+  padding: 8px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1000;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -100px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 11px;
+  border: 1px solid var(--secondary-color);
+  pointer-events: none;
+}
+
+.tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.9) transparent transparent transparent;
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Dividers */
+.divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: 15px 0;
+}
+
+/* Stat Boxes */
+.stat-box {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 15px;
+  text-align: center;
+}
+
+.stat-box-label {
+  font-size: 11px;
+  color: var(--light-text);
+  opacity: 0.7;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.stat-box-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--secondary-color);
+}
+
+.stat-box-unit {
+  font-size: 11px;
+  color: var(--light-text);
+  opacity: 0.6;
+  margin-top: 4px;
+}
+
+/* Empty States */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--light-text);
+  opacity: 0.6;
+}
+
+.empty-state-icon {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+.empty-state-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.empty-state-text {
+  font-size: 12px;
+  line-height: 1.5;
+}
